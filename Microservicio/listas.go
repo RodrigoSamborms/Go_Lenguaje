@@ -7,7 +7,7 @@ import (
 
 func handlerListas(w http.ResponseWriter, r *http.Request) {
 	// Filtramos solo los activos
-	rows, err := db.Query("SELECT id, nombre FROM usuarios WHERE activo = TRUE")
+	rows, err := db.Query("SELECT id, nombre FROM usuarios WHERE activo = 1")
 	if err != nil {
 		http.Error(w, "Error al consultar", 500)
 		return

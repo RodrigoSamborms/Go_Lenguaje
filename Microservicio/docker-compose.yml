@@ -1,0 +1,31 @@
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: proyecto_go
+      MYSQL_USER: usuariodb
+      MYSQL_PASSWORD: "1234"
+    ports:
+      - "3307:3306"
+    volumes:
+      # PERSISTENCIA: Crea una carpeta 'db_data' en tu proyecto para los datos reales
+      - ./db_data:/var/lib/mysql 
+      # INICIALIZACIÓN: Solo corre la primera vez que la DB nace
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      # AQUÍ es donde ocurre la magia de las variables de entorno:
+      - DB_USER=usuariodb
+      - DB_PASS=1234
+      - DB_HOST=db  # Docker resuelve "db" a la IP interna del contenedor de MariaDB
+      - DB_PORT=3306
+      - DB_NAME=proyecto_go
