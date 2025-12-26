@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (a92241f79)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (a92241f79)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/microservicio-default: "true"
+        io.kompose.service: app
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              value: db
+            - name: DB_NAME
+              value: proyecto_go
+            - name: DB_PASS
+              value: "1234"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: usuariodb
+          image: samborms/proyecto-go-app:latest
+          name: app
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
