@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Servicio de Base de Datos
+  db:
+    image: mariadb:10.11
+    container_name: proyecto_go_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: proyecto_go
+      MYSQL_USER: usuariodb
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - proyecto-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio Web (PHP + Apache)
+  web:
+    image: php:8.2-apache
+    container_name: proyecto_go_web
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: usuariodb
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: proyecto_go
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - proyecto-network
+    command: >
+      bash -c "docker-php-ext-install mysqli &&
+               docker-php-ext-enable mysqli &&
+               apache2-foreground"
+
+volumes:
+  mariadb_data:
+
+networks:
+  proyecto-network:
+    driver: bridge

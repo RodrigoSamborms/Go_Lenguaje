@@ -1,0 +1,32 @@
+# Ignorar directorios de Docker
+.dockerignore
+docker-compose.override.yml
+
+# Ignorar datos de base de datos locales
+db_data/
+mysql_data/
+mariadb_data/
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Ignorar archivos de IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignorar logs
+*.log
+logs/
+
+# Ignorar dependencias (si se usan)
+vendor/
+node_modules/
+
+# Ignorar archivos de caché
+.cache/
+*.tmp

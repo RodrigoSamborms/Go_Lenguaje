@@ -4,15 +4,22 @@ import (
 	"embed"
 	"fmt"
 	"net/http"
+	"os"
 )
 
 //go:embed index.html styles.css
 var archivosWeb embed.FS
 
-// Esta será la dirección interna en tu red de Docker/Kubernetes después
-// Por ahora, para pruebas locales, usaremos localhost
-//const apiURL = "http://localhost:8081/api/usuarios"  //para ejecutar localmente
-const apiURL = "http://api-service:8081/api/usuarios" //ejecución en Docker
+// Función para obtener la URL del API desde variable de entorno
+func getAPIURL() string {
+	if url := os.Getenv("API_URL"); url != "" {
+		return url
+	}
+	// Fallback para ejecución en Docker/Kubernetes
+	return "http://api-service:8081/api/usuarios"
+}
+
+var apiURL = getAPIURL()
 
 func main() {
     // Servir la página de inicio

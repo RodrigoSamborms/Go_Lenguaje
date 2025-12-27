@@ -20,8 +20,7 @@ spec:
         # Si tu código de Go lee la URL de la API desde una variable de entorno:
         env:
         - name: API_URL
-          #value: "http://api-service:8081/api/usuarios"
-          value: "http://127.0.0.1:33587/api/usuarios"
+          value: "http://api-service:8081/api/usuarios"
 ---
 apiVersion: v1
 kind: Service

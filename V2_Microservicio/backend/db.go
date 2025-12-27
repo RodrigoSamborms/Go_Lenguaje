@@ -28,6 +28,9 @@ func conectarDB() {
     name := getEnv("DB_NAME", "proyecto_go")
 
     dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, pass, host, port, name)
+    
+    // Log de configuración (sin mostrar la contraseña completa)
+    fmt.Printf("Intentando conectar a: %s@tcp(%s:%s)/%s\n", user, host, port, name)
 
     // Bucle de reintento: intentará 10 veces, una cada 2 segundos
     for i := 0; i < 10; i++ {
@@ -38,6 +41,9 @@ func conectarDB() {
                 fmt.Println("¡Conexión exitosa a la base de datos!")
                 return // Sale de la función si tiene éxito
             }
+        }
+        if err != nil {
+            fmt.Printf("Error: %v\n", err)
         }
         fmt.Printf("Esperando a la base de datos en %s... (intento %d/10)\n", host, i+1)
         time.Sleep(2 * time.Second)
