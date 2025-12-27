@@ -1,0 +1,55 @@
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 40px; 
+    background-color: #f4f4f9;
+}
+.seccion { 
+    background: white;
+    border: 1px solid #ddd; 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+/* En styles.css */
+.btn {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-borrar {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+}
+
+.btn-editar {
+    background-color: #007bff; /* Azul */
+    color: white;
+}
+/*Adicional*/
+ul { list-style: none; padding: 0; }
+li { 
+    margin-bottom: 15px; 
+    padding: 10px; 
+    border-bottom: 1px solid #eee; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+}
+.acciones { display: flex; gap: 10px; align-items: center; }

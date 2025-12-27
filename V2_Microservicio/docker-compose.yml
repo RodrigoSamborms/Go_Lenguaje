@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: proyecto_go
+      MYSQL_USER: usuariodb
+      MYSQL_PASSWORD: 1234
+    ports:
+      #- "3306:3306" Para ejecución local
+      - "3308:3306" #Ejecución en Docker
+
+  api-service:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    depends_on:
+      - db
+    environment:
+      DB_USER: usuariodb
+      DB_PASS: 1234
+      DB_HOST: db
+      DB_NAME: proyecto_go
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # <--- AGREGA ESTA LÍNEA
+
+  web-service:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - api-service
+    ports:
+      - "8080:8080"
