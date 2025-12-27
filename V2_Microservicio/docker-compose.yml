@@ -12,6 +12,9 @@ services:
     ports:
       #- "3306:3306" Para ejecución local
       - "3308:3306" #Ejecución en Docker
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # <--- AGREGA ESTA LÍNEA
+      - mariadb_data:/var/lib/mysql # <--- ESTA LÍNEA CREA LA PERSISTENCIA
 
   api-service:
     build:
@@ -26,8 +29,7 @@ services:
       DB_NAME: proyecto_go
     ports:
       - "8081:8081"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # <--- AGREGA ESTA LÍNEA
+    
 
   web-service:
     build:
@@ -37,3 +39,6 @@ services:
       - api-service
     ports:
       - "8080:8080"
+
+volumes:
+  mariadb_data:

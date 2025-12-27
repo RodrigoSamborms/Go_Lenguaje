@@ -1,4 +1,7 @@
 CREATE DATABASE IF NOT EXISTS proyecto_go;
+CREATE USER IF NOT EXISTS 'usuariodb'@'%' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON proyecto_go.* TO 'usuariodb'@'%';
+FLUSH PRIVILEGES;
 USE proyecto_go;
 
 CREATE TABLE IF NOT EXISTS usuarios (

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api-container
+        image: samborms/go-backend:v2  # Tu imagen de Docker Hub
+        ports:
+        - containerPort: 8081
+        env:
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: mysql-user
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: mysql-password
+        - name: DB_HOST
+          #value: "db"  # Nombre del Service de la base de datos
+          value: "db.default.svc.cluster.local"
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: mysql-database
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:10.11
+        args: ["--bind-address=0.0.0.0"] # <--- AGREGA ESTA LÍNEA
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: mysql-root-password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: mysql-database
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: mysql-user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: mysql-password
+        volumeMounts:
+        - name: db-storage
+          mountPath: /var/lib/mysql
+        - name: db-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: db-storage
+        persistentVolumeClaim:
+          claimName: mariadb-pvc
+      - name: db-init
+        configMap:
+          name: db-init-script
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

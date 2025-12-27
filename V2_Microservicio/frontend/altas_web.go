@@ -15,7 +15,8 @@ func handlerAltasWeb(w http.ResponseWriter, r *http.Request) {
         jsonDatos, _ := json.Marshal(datosUsuario)
 
         // Enviamos el JSON a la API
-        resp, err := http.Post("http://localhost:8081/api/usuarios/crear", 
+        //resp, err := http.Post("http://localhost:8081/api/usuarios/crear", 
+        resp, err := http.Post("http://api-service:8081/api/usuarios/crear",
                                "application/json", 
                                bytes.NewBuffer(jsonDatos))
 
