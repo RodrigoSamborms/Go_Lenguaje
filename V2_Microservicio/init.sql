@@ -1,4 +1,6 @@
 CREATE DATABASE IF NOT EXISTS proyecto_go;
+-- Borramos si existe para asegurar que se cree con los permisos correctos
+DROP USER IF EXISTS 'usuariodb'@'%';
 CREATE USER IF NOT EXISTS 'usuariodb'@'%' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON proyecto_go.* TO 'usuariodb'@'%';
 FLUSH PRIVILEGES;

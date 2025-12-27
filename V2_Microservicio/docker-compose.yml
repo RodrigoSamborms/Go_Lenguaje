@@ -10,8 +10,8 @@ services:
       MYSQL_USER: usuariodb
       MYSQL_PASSWORD: 1234
     ports:
-      #- "3306:3306" Para ejecución local
-      - "3308:3306" #Ejecución en Docker
+      - "3306:3306" #Para ejecución local o kubernetes
+      #- "3308:3306" #Ejecución en Docker
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # <--- AGREGA ESTA LÍNEA
       - mariadb_data:/var/lib/mysql # <--- ESTA LÍNEA CREA LA PERSISTENCIA

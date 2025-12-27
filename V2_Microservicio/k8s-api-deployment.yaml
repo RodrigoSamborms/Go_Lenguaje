@@ -15,6 +15,9 @@ spec:
       containers:
       - name: api-container
         image: samborms/go-backend:v2  # Tu imagen de Docker Hub
+        # Esto hará que Kubernetes espere antes de dar por muerto al contenedor
+        # y permite que MariaDB termine su init.sql
+        command: ["sh", "-c", "sleep 30 && ./main_api"]
         ports:
         - containerPort: 8081
         env:
@@ -29,8 +32,8 @@ spec:
               name: db-secrets
               key: mysql-password
         - name: DB_HOST
-          #value: "db"  # Nombre del Service de la base de datos
-          value: "db.default.svc.cluster.local"
+          value: "db"  # Nombre del Service de la base de datos
+          #value: "db.default.svc.cluster.local"
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
