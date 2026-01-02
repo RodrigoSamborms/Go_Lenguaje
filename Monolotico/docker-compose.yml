@@ -12,7 +12,7 @@ services:
       MYSQL_USER: usuariodb
       MYSQL_PASSWORD: 1234
     ports:
-      - "3306:3306"
+      - "3309:3306"  # Puerto 3309 para evitar conflictos (3306: MariaDB WSL, 3307: Microservicio, 3308: V2)
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - mariadb_data:/var/lib/mysql

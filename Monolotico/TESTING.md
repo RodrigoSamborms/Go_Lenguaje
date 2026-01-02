@@ -1,12 +1,14 @@
 # 🧪 Guía de Prueba - Arquitectura Monolítica PHP
 
+**Entorno:** WSL Debian con Docker
+
 ## ⚡ Inicio Rápido
 
 ### 1. Levantar la Aplicación
 
 ```bash
 # Desde la carpeta Monolotico/
-docker-compose up -d
+docker compose up -d
 
 # Esperar 10-15 segundos mientras se inicializa MariaDB
 ```
@@ -15,7 +17,7 @@ docker-compose up -d
 
 ```bash
 # Verificar contenedores
-docker-compose ps
+docker compose ps
 
 # Resultado esperado:
 # NAME              STATUS      PORTS

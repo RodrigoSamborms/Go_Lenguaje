@@ -1,7 +1,7 @@
 <?php
 // config.php - Configuración de conexión a la base de datos
 
-$servername = "localhost";  // Cambia a "db" si usas Docker
+$servername = "db";  // Nombre del servicio de base de datos en Docker
 $username = "usuariodb";
 $password = "1234";
 $dbname = "proyecto_go";

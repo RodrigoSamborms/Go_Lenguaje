@@ -1,7 +1,8 @@
 # 🚀 Guía de Despliegue - Dos Enfoques
 
 **Fecha:** 27 de Diciembre, 2025  
-**Propósito:** Ejecutar la aplicación monolítica en dos entornos diferentes
+**Propósito:** Ejecutar la aplicación monolítica en dos entornos diferentes  
+**Entorno Principal:** WSL Debian en Windows con Docker
 
 ---
 
@@ -11,7 +12,7 @@
 Para producción en hardware embebido (sin Docker)
 
 ### Opción B: Máquina x86 Local + Docker Compose
-Para desarrollo y pruebas locales
+Para desarrollo y pruebas locales (ejecutándose en WSL Debian)
 
 ---
 

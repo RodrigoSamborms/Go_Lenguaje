@@ -7,6 +7,7 @@ Esta carpeta contiene una implementación **monolítica tradicional** de una apl
 - **Apache** - Servidor web
 - **MariaDB 10.11** - Base de datos relacional
 - **Docker** - Containerización
+- **WSL Debian** - Entorno de ejecución en Windows
 
 Esta arquitectura contrasta con las versiones en microservicios de las carpetas `Microservicio/` y `V2_Microservicio/`.
 
@@ -38,7 +39,7 @@ Monolotico/
 cd Monolotico/
 
 # Iniciar los servicios
-docker-compose up -d
+docker compose up -d
 
 # Esperar 10 segundos a que se inicialice la BD
 # Luego acceder a: http://localhost:8080
@@ -46,13 +47,13 @@ docker-compose up -d
 
 **Detener:**
 ```bash
-docker-compose down
+docker compose down
 ```
 
 **Ver logs:**
 ```bash
-docker-compose logs -f web    # Logs del PHP
-docker-compose logs -f db     # Logs de MariaDB
+docker compose logs -f web    # Logs del PHP
+docker compose logs -f db     # Logs de MariaDB
 ```
 
 ---

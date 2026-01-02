@@ -1,7 +1,8 @@
 # 📋 RESUMEN FINAL - Arquitectura Monolítica Implementada
 
 **Fecha de Creación:** 27 de Diciembre, 2025  
-**Status:** ✅ **COMPLETADO Y OPERACIONAL**
+**Status:** ✅ **COMPLETADO Y OPERACIONAL**  
+**Entorno:** WSL Debian con Docker
 
 ---
 
@@ -72,7 +73,7 @@ Se implementó **exitosamente** una arquitectura monolítica completa con **PHP 
 ### Inicio Rápido
 ```bash
 cd Go_Lenguaje/Monolotico
-docker-compose up -d
+docker compose up -d
 # Acceder: http://localhost:8080
 ```
 

@@ -201,6 +201,26 @@ Deploying el mismo cluster K8s en múltiples máquinas:
 
 ---
 
+## ⚠️ Nota Importante: Configuración de Puertos
+
+El proyecto utiliza múltiples instancias de MariaDB en diferentes puertos para evitar conflictos. Asegúrate de que estos puertos estén disponibles:
+
+| Servicio | Puerto | Contenedor/Proceso |
+|----------|--------|-------------------|
+| MariaDB Base (WSL Debian) | **3306** | Instalación nativa del sistema |
+| Microservicio | **3307** | microservicio-db-1 |
+| V2_Microservicio | **3308** | v2_microservicio-db-1 |
+| Monolítico | **3309** | proyecto_go_db |
+
+**Puertos Web:**
+- Monolítico (PHP): `http://localhost:8080`
+- Microservicio V1: `http://localhost:8080`
+- Microservicio V2: `http://localhost:8080` (con port-forward de Kubernetes)
+
+> **Tip:** Para verificar qué puertos están en uso: `docker ps -a | grep 3306` o `netstat -tuln | grep 3306`
+
+---
+
 ## 🚀 Cómo Ejecutar FASE 2 (Actual)
 
 ### Requisitos Previos
